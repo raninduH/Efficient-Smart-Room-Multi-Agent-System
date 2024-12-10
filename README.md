@@ -14,7 +14,7 @@ Step 2: Set up XMPP accounts
 Download an XMPP server or a client and register 8 XMPP email accounts. (Each agent needs an XMPP email. There are 8 agents in this system.)
 If using online XMPP servers rather than running a local one, choosing the 8 accounts from at least 4 different servers is better.
 
-Step 4: Install the relevant python libraries
+Step 4: Install the relevant Python libraries
 
 pip install spade
 pip install pygame
