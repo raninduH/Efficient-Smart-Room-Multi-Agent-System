@@ -1,0 +1,5 @@
+# Exclude specific files
+.env
+
+# Exclude the spadeEnv directory (at the root)
+spadeEnv/
