@@ -13,15 +13,15 @@ import random
 from spade import run
 
 from spade import run  # Ensure SPADE agents run in the same program
-from smartRoom import (
-    TemperatureSensorAgent, HumiditySensorAgent, LightSensorAgent,
-    ACAgent, FanAgent, WindowsAgent, BulbAgent, ControllerAgent,
-    FuzzyLogic, temp_agent_name, temp_agent_password,
-    hum_agent_name, hum_agent_password, light_agent_name, light_agent_password,
-    ac_agent_name, ac_agent_password, fan_agent_name, fan_agent_password,
-    win_agent_name, win_agent_password, bulb_agent_name, bulb_agent_password,
-    controller_agent_name, controller_agent_password
-)
+# from smartRoom import (
+#     TemperatureSensorAgent, HumiditySensorAgent, LightSensorAgent,
+#     ACAgent, FanAgent, WindowsAgent, BulbAgent, ControllerAgent,
+#     FuzzyLogic, temp_agent_name, temp_agent_password,
+#     hum_agent_name, hum_agent_password, light_agent_name, light_agent_password,
+#     ac_agent_name, ac_agent_password, fan_agent_name, fan_agent_password,
+#     win_agent_name, win_agent_password, bulb_agent_name, bulb_agent_password,
+#     controller_agent_name, controller_agent_password
+# )
 
 # Initialize pygame
 pygame.init()
@@ -55,20 +55,20 @@ SLIDER_WIDTH = 300
 SLIDER_HEIGHT = 10
 
 # Sliders
-temp_slider_rect = pygame.Rect(1050, 60, SLIDER_WIDTH, SLIDER_HEIGHT)
-humidity_slider_rect = pygame.Rect(1050, 140, SLIDER_WIDTH, SLIDER_HEIGHT)
-light_slider_rect = pygame.Rect(1050, 220, SLIDER_WIDTH, SLIDER_HEIGHT)
-outside_brightness_slider_rect = pygame.Rect(1050, 300, SLIDER_WIDTH, SLIDER_HEIGHT)
+temp_slider_rect = pygame.Rect(1070, 60, SLIDER_WIDTH, SLIDER_HEIGHT)
+humidity_slider_rect = pygame.Rect(1070, 140, SLIDER_WIDTH, SLIDER_HEIGHT)
+light_slider_rect = pygame.Rect(1070, 220, SLIDER_WIDTH, SLIDER_HEIGHT)
+outside_brightness_slider_rect = pygame.Rect(1070, 300, SLIDER_WIDTH, SLIDER_HEIGHT)
 
 # Load Images
-fan_img = pygame.image.load("fan_off.jpg")
-fan_active_img = pygame.image.load("fan_on.jpg")
-ac_img = pygame.image.load("ac_off.jpg")
-ac_active_img = pygame.image.load("ac_on.png")
-window_img = pygame.image.load("window_closed.jpg")
-window_active_img = pygame.image.load("window_open.jpeg")
-bulb_img = pygame.image.load("bulb_off.jpg")
-bulb_active_img = pygame.image.load("bulb_on.jpg")
+fan_img = pygame.image.load("images/fan_off.jpg")
+fan_active_img = pygame.image.load("images/fan_on.jpg")
+ac_img = pygame.image.load("images/ac_off.jpg")
+ac_active_img = pygame.image.load("images/ac_on.png")
+window_img = pygame.image.load("images/window_closed.jpg")
+window_active_img = pygame.image.load("images/window_open.jpeg")
+bulb_img = pygame.image.load("images/bulb_off.jpg")
+bulb_active_img = pygame.image.load("images/bulb_on.jpg")
 
 # Scale Images
 fan_img = pygame.transform.scale(fan_img, (100, 100))
@@ -93,7 +93,7 @@ window_open = False
 bulb_active = False
 
 # Start Button Properties
-button_rect = pygame.Rect(1100, 400, 150, 50)  # Button dimensions and position
+button_rect = pygame.Rect(1120, 400, 150, 50)  # Button dimensions and position
 button_color = BLUE
 button_text = "Start Agents"
 
@@ -101,8 +101,6 @@ ac_power = None
 fan_power = None
 brightness = None
 
-
-restart_button_rect = pygame.Rect(1050, 600, 150, 50)
 
 # Message log
 messages = []
@@ -180,9 +178,7 @@ class TemperatureSensorAgent(Agent):
                 await asyncio.sleep(1)
             
             await asyncio.sleep(5)
-            #await self.agent.stop()
-            #await asyncio.sleep(main_agents_skip_time+5)
-
+        
     async def setup(self):
         start_at = datetime.datetime.now() + datetime.timedelta(seconds=6)
         b = self.SenseTemperature(period=2, start_at=start_at)
@@ -220,8 +216,7 @@ class HumiditySensorAgent(Agent):
             
             await asyncio.sleep(5)
             
-            #await self.agent.stop()
-            #await asyncio.sleep(main_agents_skip_time + 5)
+            
 
     async def setup(self):
         start_at = datetime.datetime.now() + datetime.timedelta(seconds=6)
@@ -257,8 +252,7 @@ class LightSensorAgent(Agent):
             
             await asyncio.sleep(5)
             
-            # await self.agent.stop()
-            # await asyncio.sleep(main_agents_skip_time+5)
+            
 
     async def setup(self):
         start_at = datetime.datetime.now() + datetime.timedelta(seconds=6)
@@ -534,8 +528,7 @@ class WindowsAgent(Agent):
                 while not win_agent_active:
                     await asyncio.sleep(1)
                     
-                # await self.agent.stop()
-                # await asyncio.sleep(main_agents_skip_time)
+        
                 self.agent.init()
                 
                 
@@ -572,7 +565,6 @@ class ACAgent(Agent):
             elif msg.body.startswith("humidity:"):
                 self.humidity = int(msg.body.split(":")[1])
        
-            #print(f"\n\n[ACAgent] Received -  Temperature: {self.temperature}, Humidity: {self.humidity}")
 
     class ManageAC(PeriodicBehaviour):
         async def run(self):
@@ -628,22 +620,7 @@ class ACAgent(Agent):
                     while not ac_agent_active:
                         await asyncio.sleep(1)
                     
-                    # self.agent.init()
-                    # await self.agent.stop()
-                    # await asyncio.sleep(main_agents_skip_time)
-                    
-                    
-                    
-                    
-                        
-                # Compare importance values
-                # if ac_importance > self.agent.win_importance:
-                #     response = Message(to=msg.sender)
-                #     response.body = "A/C"
-                # else:
-                #     response = Message(to=msg.sender)
-                #     response.body = "windows"
-                # await self.send(response)
+                
 
     async def setup(self):
         start_at = datetime.datetime.now() + datetime.timedelta(seconds=1)
@@ -676,7 +653,6 @@ class FanAgent(Agent):
             elif msg.body.startswith("humidity:"):
                 self.humidity = int(msg.body.split(":")[1])
      
-            #print(f"\n\n[FanAgent] Received -  Temperature: {self.temperature}, Humidity: {self.humidity}")
 
     class ManageFan(PeriodicBehaviour):
         async def run(self):
@@ -734,22 +710,7 @@ class FanAgent(Agent):
                     while not fan_agent_active:
                         await asyncio.sleep(1)
                     
-                    # await self.agent.stop()
-                    # self.agent.init()
-                    # await asyncio.sleep(main_agents_skip_time)
-                    
-                    
-                    
-                    
-                    
-                # Compare importance values
-                # if ac_importance > self.agent.win_importance:
-                #     response = Message(to=msg.sender)
-                #     response.body = "A/C"
-                # else:
-                #     response = Message(to=msg.sender)
-                #     response.body = "windows"
-                # await self.send(response)
+                
 
     async def setup(self):
         start_at = datetime.datetime.now() + datetime.timedelta(seconds=1)
@@ -780,7 +741,6 @@ class BulbAgent(Agent):
                 self.brightness = int(msg.body.split(":")[1])
            
 
-            #print(f"[BulbAgent] Received - Brightness: {self.brightness}")
     
     # Cyclic behaviour to manage window decision based on the received values
     class ManageBulb(PeriodicBehaviour):
@@ -837,11 +797,6 @@ class BulbAgent(Agent):
                 bulb_agent_active = False
                 while not bulb_agent_active:
                     await asyncio.sleep(1)
-                    
-                # self.agent.init()
-                # await self.agent.stop()
-                # await asyncio.sleep(main_agents_skip_time)
-                
                 
                 
             
@@ -884,7 +839,6 @@ class ControllerAgent(Agent):
                 self.ac_power = float(msg.body.split(":")[1])
             elif msg.body.startswith("bulb_brightness:"):
                 self.bulb_brightness = float(msg.body.split(":")[1])
-            #print(f"[WindowsAgent] Received - Brightness: {self.brightness}, Temperature: {self.temperature}, Humidity: {self.humidity}")
     
     # Cyclic behaviour to manage window decision based on the received values
     class ManageController(PeriodicBehaviour):
@@ -942,8 +896,7 @@ class ControllerAgent(Agent):
                     await asyncio.sleep(1)
                 
                 self.agent.init()
-                # await self.agent.stop()
-                # await asyncio.sleep(main_agents_skip_time)
+        
                 
                 
 
@@ -955,12 +908,6 @@ class ControllerAgent(Agent):
  
 
 # Handle Slider Movement
-# def handle_slider(slider_rect, value, min_val, max_val):
-#     mouse_x, mouse_y = pygame.mouse.get_pos()
-#     if pygame.mouse.get_pressed()[0] and slider_rect.collidepoint(mouse_x, slider_rect.y):
-#         new_value = min_val + (max_val - min_val) * (mouse_x - slider_rect.x) / SLIDER_WIDTH
-#         return int(new_value)
-#     return value
 
 def handle_slider(slider_rect, value, min_val, max_val):
     global current_slider
@@ -1119,8 +1066,8 @@ async def pygame_loop():
         screen.blit(button_text_surface, (button_rect.x + 20, button_rect.y + 15))
 
         # Draw Sliders
-        draw_slider(temp_slider_rect, temp, 15, 40, "Temperature")
-        draw_slider(humidity_slider_rect, humidity, 20, 90, "Humidity")
+        draw_slider(temp_slider_rect, temp, 15, 40, "Room Temperature")
+        draw_slider(humidity_slider_rect, humidity, 20, 90, "Room Humidity")
         draw_slider(light_slider_rect, light, 100, 800, "Room Brightness")
         draw_slider(outside_brightness_slider_rect, outside_brightness, 100, 800, "Outside Brightness")
       
